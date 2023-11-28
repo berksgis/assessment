@@ -49,8 +49,17 @@
 <body>
 	<div class="container-fluid">
 		<form>
+			<div class="row mb-3" style="padding-right:0; padding-top:30px">
+				<div class="col-sm-12">
+					<input class="form-control" id="taxInput" placeholder="Enter Tax Map Number">
+                </div>
+            </div>
+			<p style="text-align:right;margin-right:0">
+                <a href="#" id="buttonLink" target="_blank" style="margin-right:8px"><button type="button" onclick="getInputValue()" formaction="#" class="btn btn-primary property-link">View Tax Map</button></a>
+                <!--<a href="#" id="detailsLink" target="_blank"><button type="button" onclick="getInputValue()" formaction="#" class="btn btn-primary property-link">Parcel Details</button></a>-->
+            </p>
 			<!--<label for="parcelInput" class="col-sm-2 col-form-label">Search parcels by owner name</label>-->
-			<input class="form-control" id="taxInput" placeholder="Enter Tax Map Number"> <button type="button" onclick="getInputValue()" formaction="#" class="btn btn-primary property-link">View Tax Map</button></a>+
+			<!--<input class="form-control" id="taxInput" placeholder="Enter Tax Map Number"> <button type="button" onclick="getInputValue()" formaction="#" class="btn btn-primary property-link">View Tax Map</button></a>-->
 		</form>
 	</div>
 	
