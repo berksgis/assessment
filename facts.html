@@ -2,88 +2,245 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"> </script> 
-	<!-- load the amCharts base library --> 
-	<script src="https://www.amcharts.com/lib/3/amcharts.js"></script> 
-	<!-- in this case, we only need bar charts, so we'll load the appropriate amCharts script --> 
-	<script src="https://www.amcharts.com/lib/3/serial.js"></script> 
-	<!-- load the arcgis-rest-js scripts --> 
-	<script src="https://unpkg.com/@esri/arcgis-rest-request"></script> 
-	<script src="https://unpkg.com/@esri/arcgis-rest-feature-layer"></script> 
-	<!-- optionally load an amcharts theme; cedar provides a calcite theme --> 
-	<script src="https://unpkg.com/@esri/cedar/dist/umd/themes/amCharts/calcite.js"></script> 
-	<!-- load cedar --> 
-	<script src="https://unpkg.com/@esri/cedar/dist/umd/cedar.js"></script> 
-	<!-- for pie charts --> <script src="https://www.amcharts.com/lib/3/pie.js"></script> 
-</head> 
-<style> 
-	body { 
-		font-family: 'Nanum Gothic', sans-serif;
-		color: #304e4e;
-		font-size: 19.2px; 
-		padding-right: 0; 
-	}
-	#chart a,
-	#chartAcres a { display: none !important; }
-	tspan { font-size: 12px !important; font-weight: bold; } 
-	.parcel-facts { font-size: 19.2px; } a, a:hover { color: #61725F; } 
-	.legend-block { height: 16px; width: 16px; border-radius: 50%; display: inline-block; margin-right: 7px; margin-left: 9px; vertical-align: -2px; } 
-	.legend-title { margin: 12px 0 14px 0; font-size: 15px; }
-	.legend-line { margin: 10px 0; font-size: 15px; }
-	.chart-title { margin: 12px 0 14px 0; text-align: center; font-size: 15px; }
-	.row { width: 98%; } 
-	.chart-row, 
-	.legend-row { display: flex; justify-content: center; } 
-</style> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <!-- load the amCharts base library -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <!-- in this case, we only need bar charts, so we'll load the appropriate amCharts script -->
+    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+    <!-- load the arcgis-rest-js scripts -->
+    <script src="https://unpkg.com/@esri/arcgis-rest-request"></script>
+    <script src="https://unpkg.com/@esri/arcgis-rest-feature-layer"></script>
+    <!-- optionally load an amcharts theme; cedar provides a calcite theme -->
+    <script src="https://unpkg.com/@esri/cedar/dist/umd/themes/amCharts/calcite.js"></script>
+    <!-- load cedar -->
+    <script src="https://unpkg.com/@esri/cedar/dist/umd/cedar.js"></script>
+    <!-- for pie charts -->
+    <script src="https://www.amcharts.com/lib/3/pie.js"></script>
+
+</head>
+
+<style>
+    body {
+        font-family: 'Nanum Gothic', sans-serif;
+        color: #304e4e;
+        font-size: 19.2px;
+        padding-right: 0;
+    }
+
+    #chart a,
+    #chartAcres a {
+        display: none !important;
+    }
+
+    tspan {
+        font-size: 12px !important;
+        font-weight: bold;
+    }
+
+    .parcel-facts {
+        font-size: 19.2px;
+    }
+
+    a,
+    a:hover {
+        color: #61725F;
+    }
+
+    .legend-block {
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 7px;
+        margin-left: 9px;
+        vertical-align: -2px;
+    }
+
+    .legend-title {
+        margin: 12px 0 14px 0;
+        font-size: 15px;
+    }    
+    
+    .legend-line {
+        margin: 10px 0;
+        font-size: 15px;
+    }
+
+    .chart-title {
+        margin: 12px 0 14px 0;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .row {
+        width: 98%;
+    }
+
+    .chart-row,
+    .legend-row {
+        display: flex;
+        justify-content: center;
+    }
+</style>
 
 <body>
-	There are about 165,000 parcels in Berks County
-	Over 85% of assessed parcels are residential
-	Nearly 8,000 parcels with agricultural uses receive preferential assessments through the Clean and Green Act
-	Assessed Class
-	
-	Commercial
-	
-	Farm/Farm Commercial
-	
-	Industrial
-	
-	Residential
-	
-	Tax Exempt
-	
-	Other
-	
-	Number of Parcels
-	
-	Total Acreage
+    <div>
+        <ul>
+            <li>There are about 165,000 parcels in Berks County</li>
+            <li>Over 85% of assessed parcels are residential</li>
+            <li>Nearly 8,000 parcels with agricultural uses receive preferential assessments through the <a
+                    href="https://www.co.berks.pa.us/Dept/Assessment/Pages/Act%20319CleanandGreen.aspx"
+                    target="_blank">Clean and Green Act</a></li>
+        </ul>
+    </div>
+    <div class="row chart-row">
+        <div class="col-4">
+            <p class="legend-title"><strong>Assessed Class</strong></p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#efb410"></span>Commercial</p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#61725f"></span>Farm/Farm
+                Commercial</p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#F85A3E"></span>Industrial</p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#00BEF2"></span>Residential</p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#88D498"></span>Tax Exempt</p>
+            <p class="legend-line"><span class="legend-block" style="background-color:#C64191"></span>Other</p>
+        </div>
+        <div class="col-4">
+            <p class="chart-title"><strong>Number of Parcels</strong></p>
+            <div id="chart" style="height: 250px;"></div>
+        </div>
+        <div class="col-4">
+            <p class="chart-title"><strong>Total Acreage</strong></p>
+            <div id="chartAcres" style="height: 250px;"></div>
+        </div>
+    </div>
 
-	<script type="text/javascript">
-	
-		var datasets = [{ "url": "https://services3.arcgis.com/dGYe1jDYrTw1wwpc/arcgis/rest/services/ParcelsByUse/FeatureServer/0", "name": "parcelUse", "query": { "orderByFields": "num_parcels DESC" } }];
-		var datasetsAcres = [{ "url": "https://services3.arcgis.com/dGYe1jDYrTw1wwpc/arcgis/rest/services/ParcelsByUse/FeatureServer/0", "name": "parcelUse", "query": { "orderByFields": "acres DESC" } }]; 
-		// designate a one or more series to show the data on the chart
-		var series = [{ "category": { "field": "parcel_use", "label": "Assessed Class" }, "value": { "field": "num_parcels", "label": "Percent of Assessed Parcels" }, "source": "parcelUse" }];
-		var seriesAcres = [{ "category": { "field": "parcel_use", "label": "Assessed Class" }, "value": { "field": "acres", "label": "Total Acreage" }, "source": "parcelUse" }];
-		var style = { "padding": { "top": 0, "bottom": 0 }, "pie": { "expand": 0 }, "colors": [ "#00BEF2", "#efb410", "#61725f", "#88D498", "#C64191" ] };
-		var styleAcres = { "padding": { "top": 0, "bottom": 0 }, "pie": { "expand": 0 }, "colors": [ "#61725f", "#00BEF2", "#88D498", "#efb410", "#F85A3E", "#C64191" ] };
-		// optionally override any of the cart type's default styles
-		var overrides = { "fontFamily": ["Nanum Gothic"], /*"labelText": "[[title]]: [[value]] parcels ([[percents]]%)",*/ "labelsEnabled": false, "graphs": [{ "balloonText": "[[title]]: [[value]] parcels ([[percents]]%)" }], "fontSize": 12, "groupPercent": 1 }; 
-		//create a cedar chart using the known 'bar' type 
-		var elementId = 'chart'; 
-		var chart = new cedar.Chart(elementId, { "type": "pie", "datasets": datasets, "series": series, "overrides": overrides, "style": style, "graphs": [{ "balloonText": "[[title]]: [[value]] parcels ([[percents]]%)" }] });
-		var elementIdAcres = 'chartAcres';
-		var chartAcres = new cedar.Chart(elementIdAcres, { "type": "pie", "datasets": datasetsAcres, "series": seriesAcres, "overrides": overrides, "style": styleAcres, "graphs": [{ "balloonText": "[[title]]: [[value]] acres ([[percents]]%)" }] });
-		// render the chart 
-		chart.show(); 
-		chartAcres.show(); 
-	</script>
+    <div class="row legend-row">
+
+    </div>
+
+
+    <script type="text/javascript">
+        var datasets = [{
+            "url": "https://services3.arcgis.com/dGYe1jDYrTw1wwpc/arcgis/rest/services/ParcelsByUse/FeatureServer/0",
+            "name": "parcelUse",
+            "query": {
+                "orderByFields": "num_parcels DESC"
+            }
+        }];
+
+        var datasetsAcres = [{
+            "url": "https://services3.arcgis.com/dGYe1jDYrTw1wwpc/arcgis/rest/services/ParcelsByUse/FeatureServer/0",
+            "name": "parcelUse",
+            "query": {
+                "orderByFields": "acres DESC"
+            }
+        }];
+
+        // designate a one or more series to show the data on the chart
+        var series = [{
+            "category": {
+                "field": "parcel_use",
+                "label": "Assessed Class"
+            },
+            "value": {
+                "field": "num_parcels",
+                "label": "Percent of Assessed Parcels"
+            },
+            "source": "parcelUse"
+        }];
+
+        var seriesAcres = [{
+            "category": {
+                "field": "parcel_use",
+                "label": "Assessed Class"
+            },
+            "value": {
+                "field": "acres",
+                "label": "Total Acreage"
+            },
+            "source": "parcelUse"
+        }];
+
+        var style = {
+            "padding": {
+                "top": 0,
+                "bottom": 0
+            },
+            "pie": {
+                "expand": 0
+            },
+            "colors": [
+                "#00BEF2", "#efb410", "#61725f", "#88D498", "#C64191"
+            ]
+        };
+
+        var styleAcres = {
+            "padding": {
+                "top": 0,
+                "bottom": 0
+            },
+            "pie": {
+                "expand": 0
+            },
+            "colors": [
+                "#61725f", "#00BEF2", "#88D498", "#efb410", "#F85A3E", "#C64191"
+            ]
+        };
+
+        // optionally override any of the cart type's default styles
+        var overrides = {
+            "fontFamily": ["Nanum Gothic"],
+            /*"labelText": "[[title]]: [[value]] parcels ([[percents]]%)",*/
+            "labelsEnabled": false,
+            "graphs": [{
+                "balloonText": "[[title]]: [[value]] parcels ([[percents]]%)"
+            }],
+            "fontSize": 12,
+            "groupPercent": 1
+        }
+
+        //create a cedar chart using the known 'bar' type
+        var elementId = 'chart';
+
+        var chart = new cedar.Chart(elementId, {
+            "type": "pie",
+            "datasets": datasets,
+            "series": series,
+            "overrides": overrides,
+            "style": style,
+            "graphs": [{
+                "balloonText": "[[title]]: [[value]] parcels ([[percents]]%)"
+            }]
+        })
+
+        var elementIdAcres = 'chartAcres'
+
+        var chartAcres = new cedar.Chart(elementIdAcres, {
+            "type": "pie",
+            "datasets": datasetsAcres,
+            "series": seriesAcres,
+            "overrides": overrides,
+            "style": styleAcres,
+            "graphs": [{
+                "balloonText": "[[title]]: [[value]] acres ([[percents]]%)"
+            }]
+        })
+
+        // render the chart
+        chart.show();
+        chartAcres.show();
+    </script>
 </body>
+
 </html>
